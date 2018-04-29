@@ -59,6 +59,17 @@ exports.inputPass = new TextLayer
 		horizontal: 10
 		vertical: 5
 
+exports.buttonbase  = new Layer
+	borderRadius: 10
+	borderWidth: 3
+	width : 150
+	height : 40
+	color: "#FFFFFF"
+	backgroundColor: "#2a9e24"
+	borderColor: "#808080"
+	shadowY: 3
+	shadowX: -3
+
 
 exports.prymeryColors =
 	green : "#22af8b"
