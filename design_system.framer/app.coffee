@@ -6,6 +6,9 @@ myPara = Patterns.para
 myAlert = Patterns.alert
 myInput = Patterns.input
 myPassword = Patterns.inputPass
+myLogo = Patterns.logo
+myImage = Patterns.image
+
 
 print myInput
 print myPassword
@@ -18,6 +21,14 @@ myInput.y = 60
 myPara.y = 150
 
 myPassword.y = 110
+
+myLogo.scale = 0.5
+myLogo.y = 320
+
+myImage.y = 400
+
+
+
 
 #PatShadow = Patterns.shadows.button
 
