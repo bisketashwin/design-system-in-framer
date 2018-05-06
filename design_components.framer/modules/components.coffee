@@ -107,7 +107,6 @@ class exports.TextBlock extends Layer
 				BodyText:"If you deviate from the headline subject, I will never read again!"
 				width:350
 
-
 		myHeadder = new Patterns.label
 			y : 20
 			parent : @
