@@ -1,38 +1,101 @@
-Patterns = require "patterns"
+components = require "components"
+patterns = require "patterns"
 
-myLabel = Patterns.label
-myPara = Patterns.para
-myAlert = Patterns.alert
-myInput = Patterns.input
-myPassword = Patterns.inputPass
-myLogo = Patterns.logo
-myImage = Patterns.image
-myButBase = Patterns.buttonbase
+elemPadding = 20
+elemGap = 10
+myState =
+	typingName : false
+	typingPassword : false
+	typed : 0
+	
+#---------------------------------------------------#
+# Layout Elements
+#---------------------------------------------------#
+base = new Layer
+	name : "base"	
+	width : screen.width
+	height : screen.height
+	
+# 	backgroundColor: "#EFEFEF"
 
-_X = 20
-_Y = 20
+LogInComponent = new Layer
+	parent : base
+	backgroundColor: patterns.colors.color0L
+	border: patterns.colors.color0M
+	borderWidth: 2
+	borderRadius: 5
+	x:100
+LogInComponent.ignoreEvents = true
 
-myLabel.x = _X
-myLabel.y = _Y
+Label = new patterns.label
+	parent : LogInComponent
+	x : elemPadding
+	y : elemPadding
+	fontWeight: 700
+	text : "LOGIN"
+	
+InputName = new components.InputText
+	parent : LogInComponent
+	x : elemPadding 
+	y : Label.maxY+elemGap
+	
+InputPassword = new components.InputText
+	parent : LogInComponent
+	x : elemPadding 
+	y : InputName.maxY+elemGap
+	text : "******"
+	
+	
+btn = new components.SubmitButton
+	parent : LogInComponent
+	x : elemPadding
+	y : InputPassword.maxY+elemGap
+	
+forgotBtn = new patterns.smallText
+	parent : LogInComponent
+	x : elemPadding
+	y : btn.maxY  + elemGap*2
+	text : "Forgot Password"
 
-myAlert.x = _X
-myAlert.y = 40 + _Y
+LogInComponent.width = InputName.maxX + elemPadding
+LogInComponent.height = forgotBtn.maxY + elemPadding
 
-myPara.x = _X
-myPara.y = 70 + _Y
+#---------------------------------------------------#
+# Add Interactions to Elements
+#---------------------------------------------------#
 
-myLogo.scale = 0.5
-myLogo.x = _X
-myLogo.y = 230 + _Y
+btn.on Events.TouchEnd, (event, layer) ->
+	print @.name # Here goes Submit function
 
-myImage.x = _X
-myImage.y = 300 + _Y
+InputName.on Events.TouchEnd, (event, layer) ->
+	@.ignoreEvents = true
+	Utils.delay 0.2, ->
+		myState.typingName = true
+		base.ignoreEvents = false
 
-myInput.x = _X
-myInput.y = 530 + _Y
-
-myPassword.x = _X
-myPassword.y = 580 + _Y
-
-myButBase.x = _X
-myButBase.y = 630 + _Y
+InputPassword.on Events.TouchEnd, (event, layer) ->
+	@.ignoreEvents = true
+	Utils.delay 0.2, ->
+		myState.typingPassword = true
+		base.ignoreEvents = false
+	
+base.on Events.TouchEnd, (event, layer) ->
+	@.ignoreEvents = true
+	print @.name, myState
+	if myState.typingName
+		myState.typingName = false
+		InputName.children[0].stateSwitch("default")
+		myState.typed += 1
+		Utils.delay 0.2, ->
+			InputName.ignoreEvents = false
+	if myState.typingPassword
+		myState.typingPassword = false
+		InputPassword.children[0].stateSwitch("default")
+		myState.typed += 1
+		Utils.delay 0.2, ->
+			InputPassword.ignoreEvents = false
+	if myState.typed >= 2
+		print btn.children[0].states.default
+		btn.children[0].stateSwitch("default")
+		
+base.ignoreEvents = true
