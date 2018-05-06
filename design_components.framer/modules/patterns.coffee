@@ -1,6 +1,8 @@
+#---------------------------------------------------#
+# Settings
+#---------------------------------------------------#
 borderWidth1 = 2
 borderRadious1 = 10
-
 # 5 Font sizes
 fontHeadder = 42
 fontSubHeadder = 30
@@ -17,8 +19,15 @@ color1L = "#52c64c" # Green
 color1M = "#2a9e24" # Green
 colorAlertM = "#9e2824" # Red
 
+
 colorAlertBgM = "#ffd15b" # Red
-colorOtherMenuM = "##1169c6" # Blue
+colorOtherMenuL = "#459fff" # Blue
+colorOtherMenuM = "#1169c6" # Blue
+colorOtherMenuD = "#0a417a" # Blue
+
+#---------------------------------------------------#
+# Export Settings for use in component
+#---------------------------------------------------#
 
 exports.colors =
   colorW : colorW
@@ -27,6 +36,9 @@ exports.colors =
   color0D : color0D
   color1M : color1M
   color1L : color1L
+  colorOtherMenuL : colorOtherMenuL
+  colorOtherMenuM : colorOtherMenuM
+  colorOtherMenuD : colorOtherMenuD
 
 inputTextColDefault = color0L
 inputBgColDefault = color0M
@@ -67,9 +79,9 @@ class exports.para extends TextLayer
     super _.defaults options,
 				fontSize : fontParagraph
 				color : color0D
-				text : "paragraph Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever."
-				width: 200
-				height : 400
+				text : "paragraph Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever. "
+				# width: 450
+				# height : 200 # Auto mode : Not Defining Height makes it
 
 class exports.logo extends Layer
   constructor: (options) ->

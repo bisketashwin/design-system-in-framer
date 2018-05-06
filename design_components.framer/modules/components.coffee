@@ -1,5 +1,7 @@
 Patterns = require "patterns"
-
+#>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#
+# Bulding Button Component
+#>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#
 class exports.SubmitButton extends Layer
 	constructor: (options) ->
 		super _.defaults options,
@@ -59,8 +61,9 @@ class exports.SubmitButton extends Layer
 
 		@.width = myInput.width
 		@.height = myInput.height
-
-
+#>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#
+# Bulding Text Input Component
+#>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#
 class exports.InputText extends Layer
 	constructor: (options) ->
 		super _.defaults options,
@@ -92,3 +95,51 @@ class exports.InputText extends Layer
 
 		@.width = myInput.width
 		@.height = myInput.height
+#>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#
+# Bulding Text Block Component
+#>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#
+class exports.TextBlock extends Layer
+	constructor: (options) ->
+		super _.defaults options,
+				backgroundColor : Patterns.colors.color0L
+				name:"TextBlock"
+				HeadText:"Say something Sensible"
+				BodyText:"If you deviate from the headline subject, I will never read again!"
+				width:350
+
+
+		myHeadder = new Patterns.label
+			y : 20
+			parent : @
+			name : "Head Line"
+			color : Patterns.colors.color1M
+			text : options.HeadText
+			width : options.width
+			padding:
+				horizontal: 20
+				vertical: 5
+
+		myPara = new Patterns.para
+			parent:@
+			y : myHeadder.maxY
+			name : "Body Text"
+			text : options.BodyText
+			color : Patterns.colors.color0D
+			width : options.width
+			padding:
+				horizontal: 20
+				vertical: 5
+
+		myHeadder.states.selected =
+			backgroundColor : Patterns.colors.colorOtherMenuL
+			color : Patterns.colors.color0D
+			animationOptions:
+        curve: Spring(damping: 0.2)
+        time: 0.2
+
+		myHeadder.on Events.LongPress, (event, layer) ->
+			Utils.delay 0.1, ->
+				myHeadder.animate ("selected")
+
+		@.width = myPara.maxX+20
+		@.height = myPara.maxY+20

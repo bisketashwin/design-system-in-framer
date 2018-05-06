@@ -1,5 +1,13 @@
+#>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#
+# Bulding Complex Component
+#>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#
+
 components = require "components"
 patterns = require "patterns"
+
+#---------------------------------------------------#
+# Layout Settings
+#---------------------------------------------------#
 
 elemPadding = 20
 elemGap = 10
@@ -15,8 +23,6 @@ base = new Layer
 	name : "base"	
 	width : screen.width
 	height : screen.height
-	
-# 	backgroundColor: "#EFEFEF"
 
 LogInComponent = new Layer
 	parent : base
@@ -24,7 +30,6 @@ LogInComponent = new Layer
 	border: patterns.colors.color0M
 	borderWidth: 2
 	borderRadius: 5
-	x:100
 LogInComponent.ignoreEvents = true
 
 Label = new patterns.label
@@ -45,7 +50,6 @@ InputPassword = new components.InputText
 	y : InputName.maxY+elemGap
 	text : "******"
 	
-	
 btn = new components.SubmitButton
 	parent : LogInComponent
 	x : elemPadding
@@ -56,6 +60,13 @@ forgotBtn = new patterns.smallText
 	x : elemPadding
 	y : btn.maxY  + elemGap*2
 	text : "Forgot Password"
+	
+NewAccountBtn = new patterns.smallText
+	parent : LogInComponent
+	x : forgotBtn.maxX + elemPadding
+	y : btn.maxY  + elemGap*2
+	text : "Create Account"
+
 
 LogInComponent.width = InputName.maxX + elemPadding
 LogInComponent.height = forgotBtn.maxY + elemPadding
@@ -99,3 +110,11 @@ base.on Events.TouchEnd, (event, layer) ->
 		btn.children[0].stateSwitch("default")
 		
 base.ignoreEvents = true
+
+#---------------------------------------------------#
+# TBD Error Handling
+#---------------------------------------------------#
+
+#---------------------------------------------------#
+# TBD Loged in state
+#---------------------------------------------------#
